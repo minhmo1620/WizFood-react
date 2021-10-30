@@ -1,21 +1,20 @@
 import "./LinkList.css";
 
 const LinkList = (props) => {
-    const newConversation = async (body) => {
-        console.log(body);
-        const res = await fetch("http://localhost:5000/conversations", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        });
-    
-        const data = await res.json();
-        console.log(data);
-    };
+  const linkMarkup = props.options.map((link) => (
+    <li key={link.id} className="link-list-item">
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="link-list-item-url"
+      >
+        {link.text}
+      </a>
+    </li>
+  ));
 
-  return newConversation({'username': 'miso3007'})
+  return <ul className="link-list">{linkMarkup}</ul>;
 };
 
 export default LinkList;

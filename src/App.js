@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import ActionProvider from "./components/ActionProvider";
 import MessageParser from "./components/MessageParser";
 import config from "./config"
+import Message from "./components/Message";
 
 function App() {
   // Signup
@@ -56,6 +57,9 @@ function App() {
             actionProvider={ActionProvider}
             messageParser={MessageParser}
           />
+        </Route>
+        <Route exact path='/test'>
+          <Message />
         </Route>
       </div>
     </Router>

@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.BubbleChat-customUser .BubbleChat-text {
+  background: red;
+}

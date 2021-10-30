@@ -1,15 +1,10 @@
 import "./App.css";
-import "@ahaui/css/dist/index.min.css";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Chatbot from "react-chatbot-kit";
 
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import ActionProvider from "./components/ActionProvider";
-import MessageParser from "./components/MessageParser";
-import config from "./config"
-import Message from "./components/Message";
+import Message from "./components/Message/Message";
 
 function App() {
   // Signup
@@ -51,14 +46,7 @@ function App() {
         <Route exact path="/login">
           <Login postAuth={login} />
         </Route>
-        <Route exact path="/wizaid">
-          <Chatbot
-            config={config}
-            actionProvider={ActionProvider}
-            messageParser={MessageParser}
-          />
-        </Route>
-        <Route exact path='/test'>
+        <Route exact path='/wizaid'>
           <Message />
         </Route>
       </div>

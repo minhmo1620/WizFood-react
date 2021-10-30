@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import "@ahaui/css/dist/index.min.css";
 import './index.css';
-import './custom.css'
+import './custom.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

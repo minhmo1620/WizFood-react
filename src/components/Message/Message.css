@@ -1,0 +1,8 @@
+.BubbleChat-customChatbot .BubbleChat-text {
+    background: #F6D1BF;
+}
+
+.BubbleChat-customUser .BubbleChat-text {
+    background: #F1F6FF;
+    color: black;
+}

@@ -11,6 +11,7 @@ class Message extends React.Component {
   };
   beginning = "Please click Start button to talk to WizAId";
   started = false;
+  username = localStorage.getItem("username");
 
   newConversation = async (body) => {
     const res = await fetch("http://localhost:5000/conversations", {
@@ -37,7 +38,7 @@ class Message extends React.Component {
       axios
         .put("http://127.0.0.1:5000/conversations", {
           answer: this.state.msg,
-          username: "minh",
+          username: this.username,
         })
         .then((res) => {
           console.log(res);
@@ -65,7 +66,7 @@ class Message extends React.Component {
     if (!started) {
       button = (
         <Button
-          onClick={() => this.newConversation({ username: "minh" })}
+          onClick={() => this.newConversation({ username: this.username })}
           style={{ paddingLeft: "25px", paddingRight: "25px" }}
           className="btn btn-primary"
         >

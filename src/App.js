@@ -9,8 +9,6 @@ import Home from "./components/Home"
 import { PrivateRoute } from "./PrivateRoute.jsx";
 import {isLoggedIn} from './auth.js';
 
-// const Home = ()=> <h3>Logged in as {localStorage.getItem("username")}</h3>
-
 function App() {
   // Signup
   const signup = async (body) => {

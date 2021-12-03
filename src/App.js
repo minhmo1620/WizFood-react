@@ -1,28 +1,48 @@
 import "./App.css";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import React, { useState } from "react";
 import Signup from "./components/Signup";
 import Login from "./components/Login/Login";
 import Message from "./components/Message/Message";
-import Home from "./components/Home"
-import { PrivateRoute } from "./PrivateRoute.jsx";
-import {isLoggedIn} from './auth.js';
+import Home from "./components/Home";
+import Box from "./components/Box";
+import CreateOption from "./components/CreateOption";
+import VoteOptions from "./components/VoteOptions";
+import { isLoggedIn } from "./auth.js";
 
-function App() {
+const About = () => <h3>Logged in as {localStorage.getItem("username")}</h3>;
+
+export function App() {
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn());
+
   // Signup
   const signup = async (body) => {
     console.log(body);
-    const res = await fetch("http://localhost:5000/users", {
+    fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
+    }).then((res) => {
+      if (res.status < 200 || res.status >= 300) {
+        throw new Error("Register Failed!");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      window.location.replace('/login');
+    })
+    .catch((err) => {
+      console.log(err);
+      alert(err);
     });
-
-    const data = await res.json();
-    console.log(data);
   };
 
   // Login
@@ -34,30 +54,52 @@ function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then(res => res.json())
-    .then(data=>{
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('username', data.username);
+    })
+      .then((res) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error("Login Failed!");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("username", data.username);
 
-      if (localStorage.getItem("access_token") !== null && localStorage.getItem("access_token")!=="undefined") {
-        window.location.replace("/")
-      } else{
-          alert(data.error);
-      }
-    }).catch(err => console.log(err));;
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
   };
 
+  if (loggedIn) {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/boxes/:box_id/vote" component={VoteOptions} />
+          <Route exact path="/boxes/:box_id/create" component={CreateOption} />
+          <Route exact path="/boxes/:box_id" component={Box} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/wizaid" component={Message} />
+          <Route exact path="/about" component={About} />
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+    );
+  }
   return (
     <Router>
       <div className="App">
-        <PrivateRoute exact isloggedin={isLoggedIn()} path="/" component={Home} />
-        <Route exact path="/signup">
-          <Signup postUsers={signup} />
-        </Route>
-        <Route exact path="/login">
-          <Login postAuth={login} />
-        </Route>
-        <PrivateRoute exact isloggedin={isLoggedIn()} path="/wizaid" component={Message} />
+        <Switch>
+          <Route exact path="/signup">
+            <Signup postUsers={signup} />
+          </Route>
+          <Route exact path="/login">
+            <Login postAuth={login} />
+          </Route>
+          <Redirect to="/login" />
+        </Switch>
       </div>
     </Router>
   );

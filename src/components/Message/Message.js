@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, BubbleChat, Avatar } from "@ahaui/react";
 
@@ -76,6 +77,9 @@ class Message extends React.Component {
     }
     return (
       <div>
+        <Link to="/">
+          <Button>Back</Button>
+        </Link>
         <div
           id="chatt"
           style={{ overflow: "scroll", overflowX: "hidden", height: "85vh" }}
@@ -98,7 +102,8 @@ class Message extends React.Component {
                     text="EC"
                   />
                 )}
-                type="system" className="BubbleChat-customChatbot"
+                type="system"
+                className="BubbleChat-customChatbot"
               />
             </div>
           </div>
@@ -121,7 +126,8 @@ class Message extends React.Component {
                         text="EC"
                       />
                     )}
-                    type="system" className="BubbleChat-customChatbot"
+                    type="system"
+                    className="BubbleChat-customChatbot"
                   />
                 </div>
               );
@@ -134,7 +140,11 @@ class Message extends React.Component {
                     marginRight: "500px",
                   }}
                 >
-                  <BubbleChat text={msg.msag} type="inbound" className="BubbleChat-customUser"/>
+                  <BubbleChat
+                    text={msg.msag}
+                    type="inbound"
+                    className="BubbleChat-customUser"
+                  />
                 </div>
               );
             }

@@ -1,19 +1,20 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "@ahaui/css/dist/index.min.css";
 import { Form, Button } from "@ahaui/react";
 
-const Login = ({postAuth}) => {
+const Login = ({ postAuth }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    postAuth({ username, password })
+    postAuth({ username, password });
 
-    setUserName('')
-    setPassword('')
-  }
+    setUserName("");
+    setPassword("");
+  };
 
   return (
     <div>
@@ -38,6 +39,13 @@ const Login = ({postAuth}) => {
           <Button.Label>Login</Button.Label>
         </Button>
       </Form>
+      <p></p>
+      <div>
+        <p>Haven't registered ?</p>
+        <Link to="/signup">
+          <Button>Signup</Button>
+        </Link>
+      </div>
     </div>
   );
 };

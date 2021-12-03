@@ -24,7 +24,7 @@ export default function Home() {
         setBoxes(data);
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   // Create a new box
   const createNewBox = async (body) => {

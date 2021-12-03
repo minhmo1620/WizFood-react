@@ -5,6 +5,7 @@ export function isLoggedIn() {
 export function deleteTokens(){
     localStorage.removeItem("access_token");
     localStorage.removeItem("username");
+    window.location.replace("/login")
 }
 export function requiredAuth(nextState, replace) {
     if (!isLoggedIn()) {

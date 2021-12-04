@@ -8,7 +8,7 @@ export default function Home() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [boxes, setBoxes] = useState([]);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState('');
 
   const history = useHistory();
 

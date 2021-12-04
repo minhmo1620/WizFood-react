@@ -17,11 +17,20 @@ export default function Box(props) {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error("Can't find the box");
+        }
+        return res.json();
+      })
       .then((data) => {
         setData(data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+        history.push('/');
+      });
 
     fetch(`http://localhost:5000/boxes/${box_id}/options`, {
       method: "GET",

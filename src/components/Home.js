@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { Form, Button } from "@ahaui/react";
+import { Form, Button, SearchBox } from "@ahaui/react";
 
 import { deleteTokens } from "../auth";
 
@@ -8,6 +8,7 @@ export default function Home() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [boxes, setBoxes] = useState([]);
+  const [search, setSearch] = useState(null);
 
   const history = useHistory();
 
@@ -58,8 +59,8 @@ export default function Home() {
   };
 
   const goToBox = (box_id) => {
-      history.push('/boxes/'+ box_id );
-  }
+    history.push("/boxes/" + box_id);
+  };
 
   return (
     <div>
@@ -71,6 +72,12 @@ export default function Home() {
       <Link to="/wizaid">
         <Button>WizAId</Button>
       </Link>
+      <SearchBox
+        placeholder="Search by the box ID"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        onClickButton={() => goToBox(search)}
+      />
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="name">

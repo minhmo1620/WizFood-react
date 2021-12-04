@@ -23,26 +23,26 @@ export function App() {
 
   // Signup
   const signup = async (body) => {
-    console.log(body);
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.status < 200 || res.status >= 300) {
-        throw new Error("Register Failed!");
-      }
-      return res.json();
     })
-    .then((data) => {
-      window.location.replace('/login');
-    })
-    .catch((err) => {
-      console.log(err);
-      alert(err);
-    });
+      .then((res) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error("Register Failed!");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        window.location.replace("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
   };
 
   // Login

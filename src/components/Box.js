@@ -29,7 +29,7 @@ export default function Box(props) {
       .catch((err) => {
         console.log(err);
         alert(err);
-        history.push('/');
+        window.location.replace('/');
       });
 
     fetch(`http://localhost:5000/boxes/${box_id}/options`, {

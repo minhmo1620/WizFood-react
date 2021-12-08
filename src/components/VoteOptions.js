@@ -11,6 +11,7 @@ const VoteLabel = {
 export default function VoteOptions(props) {
   const { box_id } = useParams();
   const [data, setData] = useState(null);
+  const [voteData, setVoteData] = useState({});
 
   // {
   //   data = {
@@ -35,20 +36,6 @@ export default function VoteOptions(props) {
   const history = useHistory();
 
   useEffect(() => {
-    let vote_data = {}
-    fetch(`http://localhost:5000/boxes/${box_id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((err) => console.log(err));
-
     fetch(`http://localhost:5000/boxes/${box_id}/vote`, {
       method: "GET",
       headers: {
@@ -59,8 +46,24 @@ export default function VoteOptions(props) {
       .then((res) => res.json())
       .then((data) => {
         if ("data" in data) {
-          vote_data = data['data'];
+          setVoteData(data['data']);
+          console.log('hey');
         }
+      })
+      .catch((err) => console.log(err));
+  }, [box_id])
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/boxes/${box_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
       })
       .catch((err) => console.log(err));
 
@@ -76,8 +79,8 @@ export default function VoteOptions(props) {
         setOptions(data);
         let votes = {};
         data.forEach((option) => {
-          if (option.id in vote_data) {
-            votes[option.id] = vote_data[option.id];
+          if (option.id in voteData) {
+            votes[option.id] = voteData[option.id];
           } else {
             votes[option.id] = null;
           }
@@ -85,7 +88,7 @@ export default function VoteOptions(props) {
         setVotes(votes);
       })
       .catch((err) => console.log(err));
-  }, [box_id]);
+  }, [box_id, voteData]);
 
   const submit = () => {
     fetch(`http://localhost:5000/boxes/${box_id}/vote`, {

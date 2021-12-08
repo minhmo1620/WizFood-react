@@ -58,8 +58,9 @@ export default function VoteOptions(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        let voteData = JSON.parse(data["data"]);
-        setVoteData(voteData);
+        if ("data" in data) {
+          setVoteData(data["data"]);
+        }
       })
       .catch((err) => console.log(err));
 

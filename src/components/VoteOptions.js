@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { Form, Button } from "@ahaui/react";
 
@@ -10,7 +10,8 @@ const VoteLabel = {
 
 export default function VoteOptions(props) {
   const { box_id } = useParams();
-  const [data, setData] = React.useState(null);
+  const [data, setData] = useState(null);
+  const [voteData, setVoteData] = useState({});
 
   // {
   //   data = {
@@ -21,7 +22,7 @@ export default function VoteOptions(props) {
   //         4: 1,
   //     }
   // }
-  const [votes, setVotes] = React.useState({});
+  const [votes, setVotes] = useState({});
   // options: [
   //   {
   //     id: 1,
@@ -29,8 +30,8 @@ export default function VoteOptions(props) {
   //     description: 'minh',
   //     vote: 0 => happy, 1 => neutral, 2 => sad
   //   }
-  // ]
-  const [options, setOptions] = React.useState([]);
+  // ]`
+  const [options, setOptions] = useState([]);
 
   const history = useHistory();
 
@@ -48,6 +49,20 @@ export default function VoteOptions(props) {
       })
       .catch((err) => console.log(err));
 
+    fetch(`http://localhost:5000/boxes/${box_id}/vote`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        let voteData = JSON.parse(data["data"]);
+        setVoteData(voteData);
+      })
+      .catch((err) => console.log(err));
+
     fetch(`http://localhost:5000/boxes/${box_id}/options`, {
       method: "GET",
       headers: {
@@ -60,7 +75,7 @@ export default function VoteOptions(props) {
         setOptions(data);
         let votes = {};
         data.forEach((option) => {
-          votes[option.id] = 0;
+          votes[option.id] = null;
         });
         setVotes(votes);
       })
@@ -91,6 +106,16 @@ export default function VoteOptions(props) {
         alert(err);
       });
   };
+
+  const updateVotesValue = () => {
+    options.forEach((option) => {
+      if (option.id in voteData) {
+        votes[option.id] = voteData[option.id]
+      }
+    });
+  };
+
+  updateVotesValue(); // Update votes based on the data for data submitted
 
   if (data === null) {
     return <div>Loading...</div>;

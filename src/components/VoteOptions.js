@@ -11,7 +11,6 @@ const VoteLabel = {
 export default function VoteOptions(props) {
   const { box_id } = useParams();
   const [data, setData] = useState(null);
-  const [voteData, setVoteData] = useState({});
 
   // {
   //   data = {
@@ -36,6 +35,7 @@ export default function VoteOptions(props) {
   const history = useHistory();
 
   useEffect(() => {
+    let vote_data = {}
     fetch(`http://localhost:5000/boxes/${box_id}`, {
       method: "GET",
       headers: {
@@ -59,7 +59,7 @@ export default function VoteOptions(props) {
       .then((res) => res.json())
       .then((data) => {
         if ("data" in data) {
-          setVoteData(data["data"]);
+          vote_data = data['data'];
         }
       })
       .catch((err) => console.log(err));
@@ -76,7 +76,11 @@ export default function VoteOptions(props) {
         setOptions(data);
         let votes = {};
         data.forEach((option) => {
-          votes[option.id] = null;
+          if (option.id in vote_data) {
+            votes[option.id] = vote_data[option.id];
+          } else {
+            votes[option.id] = null;
+          }
         });
         setVotes(votes);
       })
@@ -107,16 +111,6 @@ export default function VoteOptions(props) {
         alert(err);
       });
   };
-
-  const updateVotesValue = () => {
-    options.forEach((option) => {
-      if (option.id in voteData) {
-        votes[option.id] = voteData[option.id]
-      }
-    });
-  };
-
-  updateVotesValue(); // Update votes based on the data for data submitted
 
   if (data === null) {
     return <div>Loading...</div>;

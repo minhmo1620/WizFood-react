@@ -74,7 +74,7 @@ export default function Box(props) {
       </Button>
       <Button
         onClick={() => {
-          history.push(`/boxes/${box_id}/vote`);
+          window.location.replace(`/boxes/${box_id}/vote`);
         }}
       >
         Vote

@@ -50,7 +50,7 @@ export default function CreateOption() {
         Back
       </Button>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="option_name">
+        <Form.Group controlId="option_name" className="Text-custom">
           <Form.Label>Name</Form.Label>
           <Form.Input
             type="text"
@@ -59,7 +59,7 @@ export default function CreateOption() {
             placeholder="Option's name"
           />
         </Form.Group>
-        <Form.Group controlId="option_description">
+        <Form.Group controlId="option_description" className="Text-custom">
           <Form.Label>Description</Form.Label>
           <Form.Input
             type="text"

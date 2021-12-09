@@ -128,7 +128,7 @@ export default function VoteOptions(props) {
       >
         Back
       </Button>
-      <h2>{data.id}</h2>
+      <h2>Box ID: {data.id}</h2>
       <p>{data.name}</p>
       <p>{data.description}</p>
       <p>Options</p>

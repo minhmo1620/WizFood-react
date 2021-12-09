@@ -29,7 +29,7 @@ export default function Box(props) {
       .catch((err) => {
         console.log(err);
         alert(err);
-        window.location.replace('/');
+        window.location.replace("/");
       });
 
     fetch(`http://localhost:5000/boxes/${box_id}/options`, {
@@ -58,47 +58,50 @@ export default function Box(props) {
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          history.push("/");
-        }}
-      >
-        Back
-      </Button>
-      <Button
-        onClick={() => {
-          history.push(`/boxes/${box_id}/create`);
-        }}
-      >
-        Add
-      </Button>
-      <Button
-        onClick={() => {
-          history.push(`/boxes/${box_id}/vote`);
-        }}
-      >
-        Vote
-      </Button>
-      <h2>{data.id}</h2>
-      <p>{data.name}</p>
-      <p>{data.description}</p>
-      <p>Options</p>
+      <div>
+        <Button
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          Back
+        </Button>
+        <Button
+          onClick={() => {
+            history.push(`/boxes/${box_id}/create`);
+          }}
+        >
+          Add
+        </Button>
+        <Button
+          onClick={() => {
+            history.push(`/boxes/${box_id}/vote`);
+          }}
+        >
+          Vote
+        </Button>
+      </div>
+      <h2>Box ID: {data.id}</h2>
+      <h3>Name: {data.name}</h3>
+      <h4>Description: {data.description}</h4>
+      <h5>Available options</h5>
       {options.map((option) => (
         <div key={option.id}>
-          <div>ID: {option.id}</div>
+          <p></p>
+          <div>Option's ID: {option.id}</div>
           <div>Name: {option.name}</div>
           <div>Description: {option.description}</div>
           <div>
             {" "}
-            Happy: {option.vote[0]}/{sum_votes[option.id]}
+            Happy : {option.vote[0]}/{sum_votes[option.id]}
           </div>
           <div>
             {" "}
-            Neutral: {option.vote[1]}/{sum_votes[option.id]}
+            :| : {option.vote[1]}/{sum_votes[option.id]}
           </div>
           <div>
             {" "}
-            Sad: {option.vote[2]}/{sum_votes[option.id]}
+            :( : {option.vote[2]}/{sum_votes[option.id]}
           </div>
         </div>
       ))}

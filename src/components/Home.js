@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Form, Button, SearchBox } from "@ahaui/react";
 
 import { deleteTokens } from "../auth";
@@ -8,7 +8,7 @@ export default function Home() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [boxes, setBoxes] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const history = useHistory();
 
@@ -66,12 +66,20 @@ export default function Home() {
     <div>
       <h3>Logged in as {localStorage.getItem("username")}</h3>
       <Button onClick={() => handleLogOut()}>Logout</Button>
-      <Link to="/about">
-        <Button>About</Button>
-      </Link>
-      <Link to="/wizaid">
-        <Button>WizAId</Button>
-      </Link>
+      <Button
+        onClick={() => {
+          history.push("/about");
+        }}
+      >
+        About
+      </Button>
+      <Button
+        onClick={() => {
+          history.push("/wizaid");
+        }}
+      >
+        WizAId
+      </Button>
       <SearchBox
         placeholder="Search by the box ID"
         value={search}

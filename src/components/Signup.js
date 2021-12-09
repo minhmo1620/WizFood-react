@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "@ahaui/css/dist/index.min.css";
 import { Form, Button } from "@ahaui/react";
+
+import "./Login/Login.css";
 
 const Signup = ({postUsers}) => {
   const [username, setUserName] = useState("");
@@ -18,7 +21,7 @@ const Signup = ({postUsers}) => {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="username">
+        <Form.Group controlId="username" className="Login-Text-custom">
           <Form.Input
             type="text"
             value={username}
@@ -26,7 +29,7 @@ const Signup = ({postUsers}) => {
             placeholder="Enter username"
           />
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password" className="Login-Text-custom">
           <Form.Input
             type="password"
             value={password}
@@ -38,6 +41,12 @@ const Signup = ({postUsers}) => {
           <Button.Label>Signup</Button.Label>
         </Button>
       </Form>
+      <div>
+        <p>Already registered ?</p>
+        <Link to="/login">
+          <Button>Login</Button>
+        </Link>
+      </div>
     </div>
   );
 };

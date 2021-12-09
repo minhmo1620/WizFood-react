@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { useParams, useHistory } from "react-router";
 import { Form, Button } from "@ahaui/react";
 
-function CreateOption() {
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
+export default function CreateOption() {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   const { box_id } = useParams();
 
@@ -41,30 +41,37 @@ function CreateOption() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="option_name">
-        <Form.Label>Name</Form.Label>
-        <Form.Input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Option's name"
-        />
-      </Form.Group>
-      <Form.Group controlId="option_description">
-        <Form.Label>Description</Form.Label>
-        <Form.Input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Option's description"
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        <Button.Label>Create a new option</Button.Label>
+    <div>
+      <Button
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        Back
       </Button>
-    </Form>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="option_name">
+          <Form.Label>Name</Form.Label>
+          <Form.Input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Option's name"
+          />
+        </Form.Group>
+        <Form.Group controlId="option_description">
+          <Form.Label>Description</Form.Label>
+          <Form.Input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Option's description"
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          <Button.Label>Create a new option</Button.Label>
+        </Button>
+      </Form>
+    </div>
   );
 }
-
-export default CreateOption;

@@ -38,6 +38,7 @@ export function App() {
         return res.json();
       })
       .then((data) => {
+        alert("Signup Successfully!");
         window.location.replace("/login");
       })
       .catch((err) => {

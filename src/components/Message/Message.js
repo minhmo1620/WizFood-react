@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, BubbleChat, Avatar } from "@ahaui/react";
 
@@ -77,9 +76,13 @@ class Message extends React.Component {
     }
     return (
       <div>
-        <Link to="/">
-          <Button>Back</Button>
-        </Link>
+        <Button
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          Back
+        </Button>
         <div
           id="chatt"
           style={{ overflow: "scroll", overflowX: "hidden", height: "85vh" }}

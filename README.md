@@ -5,20 +5,32 @@ WizFood-react is the Frontend of WizFood, which is my Capstone project to gradua
 ## Set up
 Please make sure you have installed `node`, `npm`, and `yarn`
 ```bash
-$ brew install node
-$ brew install npm
-$ brew install yarn
+$ brew install node@16.14.0
+$ brew install npm@8.1.0
+$ brew install yarn@1.22.10s
 ```
 
+## Run the application
+
+### Docker
+Build:
+
+    docker build -t wizfood-react:1.0 . 
+
+Run:
+
+    docker run --rm -p 3000:3000 wizfood-react:1.0
+
+### Without Docker
+
 Install the project
-```bash
-npm install
-```
+
+    npm install
+
 Run the project locally 
-```bash
-npm start
-```
+
+    npm start
+
 or 
-```bash
-yarn start
-```
+
+    yarn start

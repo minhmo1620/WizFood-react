@@ -15,6 +15,7 @@ import Box from "./components/Box";
 import CreateOption from "./components/CreateOption";
 import VoteOptions from "./components/VoteOptions";
 import { isLoggedIn } from "./auth.js";
+import Logout from "./components/Logout";
 
 const About = () => <h3>Logged in as {localStorage.getItem("username")}</h3>;
 
@@ -83,6 +84,7 @@ export function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/wizaid" component={Message} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/logout" component={Logout} />
           <Redirect to="/" />
         </Switch>
       </Router>

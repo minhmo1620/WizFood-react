@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "@ahaui/css/dist/index.min.css";
 import { Form, Button } from "@ahaui/react";
 
+import "./Login.css";
+
 const Login = ({ postAuth }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +21,7 @@ const Login = ({ postAuth }) => {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="username">
+        <Form.Group controlId="username" className="Login-Text-custom">
           <Form.Input
             type="text"
             value={username}
@@ -27,7 +29,7 @@ const Login = ({ postAuth }) => {
             placeholder="Enter username"
           />
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password" className="Login-Text-custom">
           <Form.Input
             type="password"
             value={password}

@@ -44,7 +44,7 @@ export default function CreateOption() {
     <div>
       <Button
         onClick={() => {
-          history.push("/");
+          history.push(`/boxes/${box_id}`);
         }}
       >
         Back

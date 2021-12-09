@@ -78,7 +78,7 @@ class Message extends React.Component {
       <div>
         <Button
           onClick={() => {
-            history.push("/");
+            window.location.replace("/");
           }}
         >
           Back
@@ -102,7 +102,7 @@ class Message extends React.Component {
                   <Avatar
                     size="small"
                     className="u-backgroundPrimary u-textWhite u-text100"
-                    text="EC"
+                    text="WA"
                   />
                 )}
                 type="system"

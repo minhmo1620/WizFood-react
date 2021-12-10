@@ -47,7 +47,6 @@ export default function VoteOptions(props) {
       .then((data) => {
         if ("data" in data) {
           setVoteData(data['data']);
-          console.log('hey');
         }
       })
       .catch((err) => console.log(err));
@@ -129,12 +128,13 @@ export default function VoteOptions(props) {
         Back
       </Button>
       <h2>Box ID: {data.id}</h2>
-      <p>{data.name}</p>
-      <p>{data.description}</p>
-      <p>Options</p>
+      <h3>Name: {data.name}</h3>
+      <h4>Description: {data.description}</h4>
+      <h5>Please vote for all options</h5>
       {options.map((option) => {
         return (
           <div key={option.id}>
+            <p></p>
             <div>ID: {option.id}</div>
             <div>Name: {option.name}</div>
             <div>Description: {option.description}</div>

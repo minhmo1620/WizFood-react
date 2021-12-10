@@ -9,6 +9,19 @@ export default function Box(props) {
   const [sum_votes, setSumVotes] = useState([]);
   const history = useHistory();
 
+  const emojiRegex = require("emoji-regex");
+  const regex = emojiRegex();
+  const emoji = {
+    Happy: `\u{1F600}`,
+    Neutral: `\u{1F610}`,
+    Sad: `\u{1F914}`,
+  }
+  Object.entries(emoji).map(([key, value]) => {
+    const e = value.match(regex)[0];
+    value = e;
+    return emoji;
+  });
+
   useEffect(() => {
     fetch(`http://localhost:5000/boxes/${box_id}`, {
       method: "GET",
@@ -93,15 +106,15 @@ export default function Box(props) {
           <div>Description: {option.description}</div>
           <div>
             {" "}
-            Happy : {option.vote[0]}/{sum_votes[option.id]}
+            {emoji.Happy} : {option.vote[0]}/{sum_votes[option.id]}
           </div>
           <div>
             {" "}
-            :| : {option.vote[1]}/{sum_votes[option.id]}
+            {emoji.Neutral} : {option.vote[1]}/{sum_votes[option.id]}
           </div>
           <div>
             {" "}
-            :( : {option.vote[2]}/{sum_votes[option.id]}
+            {emoji.Sad} : {option.vote[2]}/{sum_votes[option.id]}
           </div>
         </div>
       ))}

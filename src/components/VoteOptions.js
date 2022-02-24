@@ -55,7 +55,7 @@ export default function VoteOptions(props) {
   }, [box_id])
 
   useEffect(() => {
-    fetch(`${SERVER_URL}/${box_id}`, {
+    fetch(`${SERVER_URL}/boxes/${box_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

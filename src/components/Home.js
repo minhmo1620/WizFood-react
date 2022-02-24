@@ -6,6 +6,8 @@ import { deleteTokens } from "../auth";
 
 import "../custom.css";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
+
 export default function Home() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -15,7 +17,7 @@ export default function Home() {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/boxes`, {
+    fetch(`${SERVER_URL}/boxes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +34,7 @@ export default function Home() {
   // Create a new box
   const createNewBox = async (body) => {
     console.log(body);
-    fetch("http://localhost:5000/boxes", {
+    fetch(`${SERVER_URL}/boxes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

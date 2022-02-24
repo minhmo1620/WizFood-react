@@ -4,6 +4,8 @@ import { Form, Button, BubbleChat, Avatar } from "@ahaui/react";
 
 import "./Message.css";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
+
 class Message extends React.Component {
   state = {
     chat: [],
@@ -14,7 +16,7 @@ class Message extends React.Component {
   username = localStorage.getItem("username");
 
   newConversation = async (body) => {
-    const res = await fetch("http://localhost:5000/conversations", {
+    const res = await fetch(`${SERVER_URL}/conversations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

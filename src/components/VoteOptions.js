@@ -8,6 +8,8 @@ const VoteLabel = {
   2: "Sad",
 };
 
+const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
+
 export default function VoteOptions(props) {
   const { box_id } = useParams();
   const [data, setData] = useState(null);
@@ -36,7 +38,7 @@ export default function VoteOptions(props) {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/boxes/${box_id}/vote`, {
+    fetch(`${SERVER_URL}/boxes/${box_id}/vote`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +55,7 @@ export default function VoteOptions(props) {
   }, [box_id])
 
   useEffect(() => {
-    fetch(`http://localhost:5000/boxes/${box_id}`, {
+    fetch(`${SERVER_URL}/${box_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +68,7 @@ export default function VoteOptions(props) {
       })
       .catch((err) => console.log(err));
 
-    fetch(`http://localhost:5000/boxes/${box_id}/options`, {
+    fetch(`${SERVER_URL}/boxes/${box_id}/options`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +92,7 @@ export default function VoteOptions(props) {
   }, [box_id, voteData]);
 
   const submit = () => {
-    fetch(`http://localhost:5000/boxes/${box_id}/vote`, {
+    fetch(`${SERVER_URL}/boxes/${box_id}/vote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -38,7 +38,7 @@ class Message extends React.Component {
     if (this.state.msg !== "") {
       console.log(this.state.msg);
       axios
-        .put("http://127.0.0.1:5000/conversations", {
+        .put(`${SERVER_URL}/conversations`, {
           answer: this.state.msg,
           username: this.username,
         })

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { Button } from "@ahaui/react";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
+
 export default function Box(props) {
   const { box_id } = useParams();
   const [data, setData] = useState(null);
@@ -23,7 +25,7 @@ export default function Box(props) {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:5000/boxes/${box_id}`, {
+    fetch(`${SERVER_URL}/boxes/${box_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +47,7 @@ export default function Box(props) {
         window.location.replace("/");
       });
 
-    fetch(`http://localhost:5000/boxes/${box_id}/options`, {
+    fetch(`${SERVER_URL}/boxes/${box_id}/options`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

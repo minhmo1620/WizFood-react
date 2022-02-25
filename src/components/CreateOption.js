@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import { useParams, useHistory } from "react-router";
 import { Form, Button } from "@ahaui/react";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
+
 export default function CreateOption() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -17,7 +19,7 @@ export default function CreateOption() {
       description,
     };
 
-    fetch(`http://localhost:5000/boxes/${box_id}/options`, {
+    fetch(`${SERVER_URL}/boxes/${box_id}/options`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

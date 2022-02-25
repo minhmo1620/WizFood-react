@@ -18,13 +18,14 @@ import { isLoggedIn } from "./auth.js";
 import Logout from "./components/Logout";
 
 const About = () => <h3>Logged in as {localStorage.getItem("username")}</h3>;
+const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
 
 export function App() {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());
 
   // Signup
   const signup = async (body) => {
-    fetch("http://localhost:5000/users", {
+    fetch(`${SERVER_URL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +51,7 @@ export function App() {
   // Login
   const login = async (body) => {
     console.log(body);
-    fetch("http://localhost:5000/auth", {
+    fetch(`${SERVER_URL}/auth`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -93,7 +93,7 @@ export default function VoteOptions(props) {
 
   const submit = () => {
     fetch(`${SERVER_URL}/boxes/${box_id}/vote`, {
-      method: "POST",
+      method: (JSON.stringify(voteData) === '{}') ? ("POST") : ("PUT"),
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("access_token"),

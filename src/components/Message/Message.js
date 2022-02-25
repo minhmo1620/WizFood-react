@@ -13,15 +13,14 @@ class Message extends React.Component {
   };
   beginning = "Please click Start button to talk to WizAId";
   started = false;
-  username = localStorage.getItem("username");
 
-  newConversation = async (body) => {
+  newConversation = async () => {
     const res = await fetch(`${SERVER_URL}/conversations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
       },
-      body: JSON.stringify(body),
     });
 
     const data = await res.json();
@@ -39,8 +38,12 @@ class Message extends React.Component {
       console.log(this.state.msg);
       axios
         .put(`${SERVER_URL}/conversations`, {
-          answer: this.state.msg,
-          username: this.username,
+          answer: this.state.msg
+        }, {
+          headers: {
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          }
         })
         .then((res) => {
           console.log(res);
@@ -68,7 +71,7 @@ class Message extends React.Component {
     if (!started) {
       button = (
         <Button
-          onClick={() => this.newConversation({ username: this.username })}
+          onClick={() => this.newConversation()}
           style={{ paddingLeft: "25px", paddingRight: "25px" }}
           className="btn btn-primary"
         >

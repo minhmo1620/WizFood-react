@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "@ahaui/css/dist/index.min.css";
 import { Form, Button } from "@ahaui/react";
+import LoginHeader from "../Headers/LoginHeader";
 
 import "./Login.css";
 
@@ -20,7 +21,9 @@ const Login = ({ postAuth }) => {
 
   return (
     <div>
+      <LoginHeader />
       <Form onSubmit={handleSubmit}>
+        <Form.Label className="u-text500 u-marginTopSmall">Login</Form.Label>
         <Form.Group controlId="username" className="Login-Text-custom">
           <Form.Input
             type="text"
@@ -43,7 +46,7 @@ const Login = ({ postAuth }) => {
       </Form>
       <p></p>
       <div>
-        <p>Haven't registered ?</p>
+        <p className="u-marginTopSmall">Haven't registered ?</p>
         <Link to="/signup">
           <Button>Signup</Button>
         </Link>

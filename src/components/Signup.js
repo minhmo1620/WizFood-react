@@ -2,25 +2,28 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "@ahaui/css/dist/index.min.css";
 import { Form, Button } from "@ahaui/react";
+import LoginHeader from "./Headers/LoginHeader";
 
 import "./Login/Login.css";
 
-const Signup = ({postUsers}) => {
+const Signup = ({ postUsers }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    postUsers({ username, password })
+    postUsers({ username, password });
 
-    setUserName('')
-    setPassword('')
-  }
+    setUserName("");
+    setPassword("");
+  };
 
   return (
     <div>
+      <LoginHeader />
       <Form onSubmit={handleSubmit}>
+        <Form.Label className="u-text500 u-marginTopSmall">Register</Form.Label>
         <Form.Group controlId="username" className="Login-Text-custom">
           <Form.Input
             type="text"
@@ -42,7 +45,7 @@ const Signup = ({postUsers}) => {
         </Button>
       </Form>
       <div>
-        <p>Already registered ?</p>
+        <p className="u-marginTopSmall">Already registered ?</p>
         <Link to="/login">
           <Button>Login</Button>
         </Link>

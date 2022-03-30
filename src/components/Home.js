@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Button, SearchBox } from "@ahaui/react";
+import { Button, Avatar } from "@ahaui/react";
+import avatar from "../avatar.svg";
 
-import { deleteTokens } from "../auth";
+import MainHeader from "../components/Headers/MainHeader";
 
 import "../custom.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
 
 export default function Home() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [boxes, setBoxes] = useState([]);
-  const [search, setSearch] = useState("");
 
   const history = useHistory();
 
@@ -31,105 +29,87 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, []);
 
-  // Create a new box
-  const createNewBox = async (body) => {
-    console.log(body);
-    fetch(`${SERVER_URL}/boxes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        history.push("/boxes/" + data.id);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    createNewBox({ name, description });
-
-    setName("");
-    setDescription("");
-  };
-
-  const handleLogOut = () => {
-    deleteTokens();
-  };
-
   const goToBox = (box_id) => {
     history.push("/boxes/" + box_id);
   };
 
   return (
     <div>
-      <h3>Welcome {localStorage.getItem("username")}</h3>
-      <div>
-        <Button onClick={() => handleLogOut()}>Logout</Button>
-        <Button
-          onClick={() => {
-            history.push("/about");
-          }}
-        >
-          About
-        </Button>
-        <Button
-          onClick={() => {
-            history.push("/wizaid");
-          }}
-        >
-          WizAId
-        </Button>
-      </div>
+      <MainHeader />
       <p></p>
       <div>
-        <h4>Search the WizBox you want to go</h4>
-        <SearchBox
-          placeholder="Search by the box ID"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onClickButton={() => goToBox(search)}
-          className="SearchBox-custom"
-        />
-      </div>
-      <p></p>
-      <div>
-        <h4>Create new WizBox</h4>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="name" className="Text-custom">
-            <Form.Input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="WizBox's name"
-            />
-          </Form.Group>
-          <Form.Group controlId="description" className="Text-custom">
-            <Form.Input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="WizBox's description"
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            <Button.Label>Create</Button.Label>
-          </Button>
-        </Form>
-      </div>
-      <p></p>
-      <div>
-        <h4>Your WizBoxes</h4>
-        {boxes.map((box) => (
-          <div key={box.id}>
-            <Button onClick={() => goToBox(box.id)}>Box {box.id}</Button>
+        <div>
+          <div className="Grid u-marginBottomSmall">
+            <div className="u-sizeFull lg:u-size8of12">
+              <div
+                className="u-backgroundPrimaryLight"
+                style={{
+                  width: "90%",
+                  marginLeft: "10%",
+                }}
+              >
+                <h4>Personal Information</h4>
+                <div key="huge" className="u-inlineBlock u-marginCenterMedium">
+                  <Avatar size="huge" src={avatar} />
+                </div>
+                <p className="u-textBold">{localStorage.getItem("username")}</p>
+              </div>
+            </div>
+            <div className="u-sizeFull lg:u-size4of12 u-paddingLeftNone">
+              <div className="u-flex u-flexColumn b-highlight u-marginBottomSmall">
+                <div className="u-paddingExtraSmall b-highlight">
+                  <Button className="u-backgroundAccentLight">
+                    <Button.Label className="u-textCenter u-textBlack">
+                      Add new food
+                    </Button.Label>
+                  </Button>
+                </div>
+                <div className="u-paddingExtraSmall b-highlight">
+                  <Button className="u-backgroundAccentLight">
+                    <Button.Label className="u-textCenter u-textBlack">
+                      Create a new WixBox
+                    </Button.Label>
+                  </Button>
+                </div>
+                <div className="u-paddingExtraSmall b-highlight">
+                  <Button className="u-backgroundAccentLight">
+                    <Button.Label className="u-textCenter u-textBlack">
+                      What should I eat today?
+                    </Button.Label>
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-        ))}
+        </div>
+
+        <div className="u-sizeFull lg:u-size8of12 u-paddingLeftNone">
+          <div
+            className="u-backgroundPrimaryLight"
+            style={{
+              width: "90%",
+              marginLeft: "10%",
+            }}
+          >
+            <h4>Your WizBoxes</h4>
+          </div>
+          <div
+            className="u-flex u-flexWrapReverse b-highlight"
+            style={{
+              marginLeft: "10%",
+            }}
+          >
+            {boxes.map((box) => (
+              <div key={box.id}>
+                <div className="u-paddingExtraSmall b-highlight">
+                  <Button className="u-backgroundAccentLight" onClick={() => goToBox(box.id)}>
+                    <Button.Label className="u-textCenter u-textBlack">Box {box.id}</Button.Label>
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,8 @@
 .SearchBox-custom .FormInputGroup{
-    width: 50%;
+    width: 90%;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 15px;
 }
 
 .Text-custom .FormInput {

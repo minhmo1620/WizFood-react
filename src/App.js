@@ -11,6 +11,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login/Login";
 import Message from "./components/Message/Message";
 import Home from "./components/Home";
+import WizBox from "./components/WizBox";
 import Box from "./components/Box";
 import CreateOption from "./components/CreateOption";
 import VoteOptions from "./components/VoteOptions";
@@ -85,6 +86,7 @@ export function App() {
           <Route exact path="/boxes/:box_id" component={Box} />
           <Route exact path="/" component={Home} />
           <Route exact path="/wizaid" component={Message} />
+          <Route exact path='/wizbox' component={WizBox} />
           <Route exact path="/about" component={About} />
           <Route exact path="/logout" component={Logout} />
           <Redirect to="/" />

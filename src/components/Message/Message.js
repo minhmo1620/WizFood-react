@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Form, Button, BubbleChat, Avatar } from "@ahaui/react";
+import { Button, BubbleChat, Avatar, Form } from "@ahaui/react";
 
 import "./Message.css";
 
@@ -9,10 +9,16 @@ const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
 class Message extends React.Component {
   state = {
     chat: [],
+    // [
+    //   { from: "cb", msag: {message:"Hi, I am Chatbot. How can I help you today?", options: [yes/no/not sure]} },
+    //   {from: 'our', msag: 'Hi, I am Chatbot. How can I help you today?'},
+    // ]
     msg: "",
   };
-  beginning = "Please click Start button to talk to WizAId";
-  started = false;
+
+  componentDidMount() {
+    this.newConversation();
+  }
 
   newConversation = async () => {
     const res = await fetch(`${SERVER_URL}/conversations`, {
@@ -24,61 +30,60 @@ class Message extends React.Component {
     });
 
     const data = await res.json();
-    this.started = true;
-    this.beginning = data.message;
-    this.forceUpdate();
+
+    this.setState({
+      chat: [
+        ...this.state.chat,
+        {
+          from: "cb",
+          msag: {
+            message: data.message,
+            options: data.options,
+          },
+        },
+      ],
+    });
   };
 
   handleChange = (e) => {
     console.log(e.target.value);
     this.setState({ msg: e.target.value });
   };
-  handleSend = () => {
-    if (this.state.msg !== "") {
-      console.log(this.state.msg);
-      axios
-        .put(`${SERVER_URL}/conversations`, {
-          answer: this.state.msg
-        }, {
+
+  handleSend = (option) => {
+    axios
+      .put(
+        `${SERVER_URL}/conversations`,
+        {
+          answer: option,
+        },
+        {
           headers: {
             "Content-Type": "application/json;charset=UTF-8",
             Authorization: "Bearer " + localStorage.getItem("access_token"),
-          }
-        })
-        .then((res) => {
-          console.log(res);
-          let ch = this.state.chat;
-          ch.push({ from: "our", msag: this.state.msg });
-          ch.push({ from: "cb", msag: res.data.message });
-          this.setState({ chat: ch, msg: "" });
-          console.log(this.state);
-        })
-        .catch((err) => {
-          console.log(err);
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        let ch = this.state.chat;
+        ch.push({ from: "our", msag: option });
+        ch.push({
+          from: "cb",
+          msag: { message: res.data.message, options: res.data.options },
         });
-
-      this.forceUpdate();
-    }
-    let interval = window.setInterval(function () {
-      var elem = document.getElementById("chatt");
-      elem.scrollTop = elem.scrollHeight;
-      window.clearInterval(interval);
-    }, 5000);
+        this.setState({ chat: ch, msg: "" });
+        setTimeout(() => {
+          document
+            .getElementById("last-message")
+            .scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   render() {
-    const started = this.started;
-    let button;
-    if (!started) {
-      button = (
-        <Button
-          onClick={() => this.newConversation()}
-          style={{ paddingLeft: "25px", paddingRight: "25px" }}
-          className="btn btn-primary"
-        >
-          Start
-        </Button>
-      );
-    }
     return (
       <div>
         <Button
@@ -92,29 +97,7 @@ class Message extends React.Component {
           id="chatt"
           style={{ overflow: "scroll", overflowX: "hidden", height: "85vh" }}
         >
-          <div>
-            {button}
-            <div
-              style={{
-                marginBottom: "20px",
-                marginTop: "20px",
-                marginLeft: "500px",
-              }}
-            >
-              <BubbleChat
-                text={this.beginning}
-                avatar={() => (
-                  <Avatar
-                    size="small"
-                    className="u-backgroundPrimary u-textWhite u-text100"
-                    text="WA"
-                  />
-                )}
-                type="system"
-                className="BubbleChat-customChatbot"
-              />
-            </div>
-          </div>
+          <div></div>
           {this.state.chat.map((msg) => {
             if (msg.from === "cb") {
               return (
@@ -122,11 +105,11 @@ class Message extends React.Component {
                   style={{
                     marginBottom: "20px",
                     marginTop: "20px",
-                    marginLeft: "500px",
+                    marginLeft: "20%",
                   }}
                 >
                   <BubbleChat
-                    text={msg.msag}
+                    text={msg.msag.message}
                     avatar={() => (
                       <Avatar
                         size="small"
@@ -134,8 +117,13 @@ class Message extends React.Component {
                         text="WA"
                       />
                     )}
-                    type="system"
-                    className="BubbleChat-customChatbot"
+                    type="outbound"
+                    currentOption={0}
+                    onSelectOption={this.handleSend}
+                    options={msg.msag.options.map((option) => ({
+                      id: option,
+                      name: option,
+                    }))}
                   />
                 </div>
               );
@@ -145,7 +133,7 @@ class Message extends React.Component {
                   style={{
                     marginBottom: "20px",
                     marginTop: "20px",
-                    marginRight: "500px",
+                    marginRight: "20%",
                   }}
                 >
                   <BubbleChat
@@ -158,6 +146,7 @@ class Message extends React.Component {
             }
           })}
         </div>
+        <div id="last-message"></div>
         <div style={{ height: "2vh" }}>
           <Form.Group controlId="chat">
             <Form.Input
@@ -170,7 +159,7 @@ class Message extends React.Component {
             />
           </Form.Group>
           <Button
-            onClick={() => this.handleSend()}
+            onClick={() => this.handleSend(this.state.msg)}
             style={{ paddingLeft: "25px", paddingRight: "25px" }}
             className="btn btn-primary"
           >

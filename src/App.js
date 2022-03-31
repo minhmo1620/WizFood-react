@@ -15,6 +15,7 @@ import WizBox from "./components/WizBox";
 import Box from "./components/Box";
 import CreateOption from "./components/CreateOption";
 import VoteOptions from "./components/VoteOptions";
+import Food from "./components/Food";
 import { isLoggedIn } from "./auth.js";
 import Logout from "./components/Logout";
 
@@ -81,10 +82,11 @@ export function App() {
     return (
       <Router>
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route exact path="/boxes/:box_id/vote" component={VoteOptions} />
           <Route exact path="/boxes/:box_id/create" component={CreateOption} />
           <Route exact path="/boxes/:box_id" component={Box} />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/foods" component={Food} />
           <Route exact path="/wizaid" component={Message} />
           <Route exact path='/wizbox' component={WizBox} />
           <Route exact path="/about" component={About} />

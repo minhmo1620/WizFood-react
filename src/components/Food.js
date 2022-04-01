@@ -58,9 +58,8 @@ export default function Food() {
       name: name,
       preference: preference,
       cooking_method: cookingMethod,
-      calories: parseInt(calories),
+      calories: 0 ? calories === "" : Number(calories),
       ingredients: ingredients,
-      // vegeterian: true ? vegeterian === "yes" : false,
       origin: origin,
     });
 

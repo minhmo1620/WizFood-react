@@ -40,7 +40,7 @@ export default function MainHeader() {
         <Header.Right>
           <TopMenu className="u-backgroundAccentLight" onSelect={goToPage}>
             <TopMenu.Item eventKey="/wizaid">WizAId</TopMenu.Item>
-            <TopMenu.Item eventKey="/wizbox">WizRes</TopMenu.Item>
+            <TopMenu.Item eventKey="/wizbox">WizBox</TopMenu.Item>
           </TopMenu>
           <SearchWizBox />
 
@@ -57,12 +57,13 @@ export default function MainHeader() {
             </Dropdown.Button>
             <Dropdown.Container className="u-paddingVerticalExtraSmall">
               <Dropdown.Item>
-                <Icon name="setting" size="small" />
-                <span className="u-marginLeftExtraSmall">My Profile</span>
-              </Dropdown.Item>
-              <Dropdown.Item>
-                <Icon name="card" size="small" />
-                <span className="u-marginLeftExtraSmall">Payment</span>
+                <Icon name="contact" size="small" />
+                <span
+                  className="u-marginLeftExtraSmall"
+                  onClick={() => history.push("/")}
+                >
+                  My Profile
+                </span>
               </Dropdown.Item>
               <Dropdown.Item>
                 <Icon name="power" size="small" />

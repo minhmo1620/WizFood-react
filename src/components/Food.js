@@ -15,7 +15,6 @@ export default function Food() {
   const [cookingMethod, setCookingMethod] = useState("");
   const [calories, setCalories] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [vegeterian, setVegeterian] = useState("");
   const preferenceList = [
     "",
     "african",
@@ -38,7 +37,8 @@ export default function Food() {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
       },
       body: JSON.stringify(body),
-    }).then((res) => {
+    })
+      .then((res) => {
         if (res.status < 200 || res.status >= 300) {
           throw new Error(res.statusText);
         }
@@ -60,8 +60,8 @@ export default function Food() {
       cooking_method: cookingMethod,
       calories: parseInt(calories),
       ingredients: ingredients,
-      vegeterian: true ? vegeterian === "yes" : false,
-      origin: origin
+      // vegeterian: true ? vegeterian === "yes" : false,
+      origin: origin,
     });
 
     setName("");
@@ -76,26 +76,50 @@ export default function Food() {
     <div>
       <MainHeader />
       <div>
-        <h4>Add new food to your library</h4>
-        <Form>
-          <Form.Group controlId="name" className="Text-custom">
-            <Form.Label>Food name</Form.Label>
+        <Form style={{ marginLeft: "30%" }}>
+          <h4 style={{ marginLeft: "8%" }}>Add new food to your library</h4>
+          <Form.Group controlId="name" className="Text-custom" requiredControl>
+            <Form.Label className="u-fontBold">Food name</Form.Label>
             <Form.Input
               type="text"
+              required
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="name"
             />
           </Form.Group>
 
+          <Form.Group
+            controlId="ingredients"
+            className="Text-custom"
+            requiredControl
+          >
+            <Form.Label className="u-fontBold">Ingredients</Form.Label>
+            <Form.Label className="u-fontItalic">
+              Please separate ingredients by comma
+            </Form.Label>
+            <Form.Input
+              type="text"
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
+              placeholder="banana, milk"
+            />
+          </Form.Group>
+
           <Form.Group controlId="preference" className="Text-custom">
-            <Form.Label>Preference</Form.Label>
+            <Form.Label className="u-fontBold">Preference</Form.Label>
+            <Form.Label className="u-fontItalic">
+              Type your answer or Pick from existing list
+            </Form.Label>
             <Form.Input
               type="text"
               value={preference}
               onChange={(e) => setPreference(e.target.value)}
-              placeholder="vietnam"
+              placeholder="asian"
             />
+            <Form.Label className="u-fontItalic">
+              Available type of cuisine
+            </Form.Label>
             <Form.Select onChange={(e) => setPreference(e.target.value)}>
               {preferenceList.map((preferenceOption, index) => (
                 <option
@@ -109,7 +133,7 @@ export default function Food() {
           </Form.Group>
 
           <Form.Group controlId="origin" className="Text-custom">
-            <Form.Label>Country origin</Form.Label>
+            <Form.Label className="u-fontBold">Country origin</Form.Label>
             <Form.Input
               type="text"
               value={origin}
@@ -118,28 +142,20 @@ export default function Food() {
             />
           </Form.Group>
 
-          <Form.Group controlId="vegeterian" className="Text-custom">
-            <Form.Label>Vegeterian</Form.Label>
-            <Form.Select onChange={(e) => setVegeterian(e.target.value)}>
-              {["yes", "no"].map((booleanValue, index) => (
-                <option
-                  key={index}
-                  label={booleanValue}
-                  value={booleanValue}
-                  name={`vegetarian-${booleanValue}`}
-                />
-              ))}
-            </Form.Select>
-          </Form.Group>
-
           <Form.Group controlId="cooking_method" className="Text-custom">
-            <Form.Label>Cooking Method</Form.Label>
+            <Form.Label className="u-fontBold">Cooking Method</Form.Label>
+            <Form.Label className="u-fontItalic">
+              Type your answer or Pick from existing list
+            </Form.Label>
             <Form.Input
               type="text"
               value={cookingMethod}
               onChange={(e) => setCookingMethod(e.target.value)}
-              placeholder="vietnam"
+              placeholder="toast"
             />
+            <Form.Label className="u-fontItalic">
+              Available cooking method
+            </Form.Label>
             <Form.Select onChange={(e) => setCookingMethod(e.target.value)}>
               {cookingMethodList.map((methodOption, index) => (
                 <option
@@ -153,26 +169,21 @@ export default function Food() {
           </Form.Group>
 
           <Form.Group controlId="calories" className="Text-custom">
-            <Form.Label>Calories</Form.Label>
+            <Form.Label className="u-fontBold">Calories</Form.Label>
             <Form.Input
               type="text"
               value={calories}
               onChange={(e) => setCalories(e.target.value)}
-              placeholder="Calories of the food"
+              placeholder="600"
             />
           </Form.Group>
 
-          <Form.Group controlId="ingredients" className="Text-custom">
-            <Form.Label>Ingredients</Form.Label>
-            <Form.Input
-              type="text"
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-              placeholder="Please separate ingredients by comma"
-            />
-          </Form.Group>
-
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={handleSubmit}
+            style={{ marginLeft: "18%" }}
+          >
             <Button.Label>Create</Button.Label>
           </Button>
         </Form>

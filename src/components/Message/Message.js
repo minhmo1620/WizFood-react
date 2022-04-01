@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Button, BubbleChat, Avatar, Form } from "@ahaui/react";
+import { Button, BubbleChat, Icon, Form } from "@ahaui/react";
+import MainHeader from "../Headers/MainHeader";
 
 import "./Message.css";
 
@@ -86,13 +87,7 @@ class Message extends React.Component {
   render() {
     return (
       <div>
-        <Button
-          onClick={() => {
-            window.location.replace("/");
-          }}
-        >
-          Back
-        </Button>
+        <MainHeader />
         <div
           id="chatt"
           style={{ overflow: "scroll", overflowX: "hidden", height: "85vh" }}
@@ -110,13 +105,7 @@ class Message extends React.Component {
                 >
                   <BubbleChat
                     text={msg.msag.message}
-                    avatar={() => (
-                      <Avatar
-                        size="small"
-                        className="u-backgroundPrimary u-textWhite u-text100"
-                        text="WA"
-                      />
-                    )}
+                    avatar={() => <Icon name="bot" size="medium" />}
                     type="outbound"
                     currentOption={0}
                     onSelectOption={this.handleSend}

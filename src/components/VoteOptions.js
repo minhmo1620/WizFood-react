@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { Form, Button } from "@ahaui/react";
 
-const VoteLabel = {
-  0: "Happy",
-  1: "Neutral",
-  2: "Sad",
-};
+import MainHeader from "./Headers/MainHeader";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
 
@@ -14,6 +10,25 @@ export default function VoteOptions(props) {
   const { box_id } = useParams();
   const [data, setData] = useState(null);
   const [voteData, setVoteData] = useState({});
+
+  const emojiRegex = require("emoji-regex");
+  const regex = emojiRegex();
+  const emoji = {
+    Happy: `\u{1F600}`,
+    Neutral: `\u{1F610}`,
+    Sad: `\u{1F914}`,
+  };
+  Object.entries(emoji).map(([key, value]) => {
+    const e = value.match(regex)[0];
+    value = e;
+    return emoji;
+  });
+
+  const VoteLabel = {
+    0: `Happy ${emoji.Happy}`,
+    1: `Neutral ${emoji.Neutral}`,
+    2: `Maybe Not ${emoji.Sad}`,
+  };
 
   // {
   //   data = {
@@ -48,11 +63,11 @@ export default function VoteOptions(props) {
       .then((res) => res.json())
       .then((data) => {
         if ("data" in data) {
-          setVoteData(data['data']);
+          setVoteData(data["data"]);
         }
       })
       .catch((err) => console.log(err));
-  }, [box_id])
+  }, [box_id]);
 
   useEffect(() => {
     fetch(`${SERVER_URL}/boxes/${box_id}`, {
@@ -93,7 +108,7 @@ export default function VoteOptions(props) {
 
   const submit = () => {
     fetch(`${SERVER_URL}/boxes/${box_id}/vote`, {
-      method: (JSON.stringify(voteData) === '{}') ? ("POST") : ("PUT"),
+      method: JSON.stringify(voteData) === "{}" ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("access_token"),
@@ -122,79 +137,92 @@ export default function VoteOptions(props) {
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          history.push(`/boxes/${box_id}`);
-        }}
-      >
-        Back
-      </Button>
-      <h2>Box ID: {data.id}</h2>
-      <h3>Name: {data.name}</h3>
-      <h4>Description: {data.description}</h4>
-      <h5>Please vote for all options</h5>
-      {options.map((option) => {
-        return (
-          <div key={option.id}>
-            <p></p>
-            <div>ID: {option.id}</div>
-            <div>Name: {option.name}</div>
-            <div>Description: {option.description}</div>
+      <MainHeader />
+      <div className="Grid u-marginBottomSmall">
+        <div className="u-sizeFull lg:u-size1of12"></div>
+        <div className="u-sizeFull lg:u-size10of12">
+          <div className="u-text800">Box ID: {data.id}</div>
+          <div className="u-textLeft u-text300">{data.name}</div>
+          <div className="u-textLeft u-text300">{data.description}</div>
+          <div className="u-textLeft u-text500 u-marginTopSmall">Please vote for all options</div>
+          <div className="u-flex u-flexColumn b-highlight u-marginBottomSmall">
+            {options.map((option) => {
+              return (
+                <div key={option.id}>
+                  <div className="u-fontBold">{option.name}</div>
+                  <div>{option.description}</div>
+                  <div className="u-flex u-flexRow b-highlight">
+                    <div className="u-paddingExtraSmall b-highlight">
+                      <Form.Check
+                        value={0}
+                        checked={votes[option.id] === 0}
+                        onChange={() => {
+                          console.log(option.id);
+                          setVotes((prevOptions) => {
+                            return {
+                              ...prevOptions,
+                              [option.id]: 0,
+                            };
+                          });
+                        }}
+                        type="radio"
+                        label={VoteLabel[0]}
+                        id={`radio-button-${0}-${option.id}`}
+                      />
+                    </div>
 
-            <Form.Check
-              value={0}
-              checked={votes[option.id] === 0}
-              onChange={() => {
-                console.log(option.id);
-                setVotes((prevOptions) => {
-                  return {
-                    ...prevOptions,
-                    [option.id]: 0,
-                  };
-                });
-              }}
-              type="radio"
-              label={VoteLabel[0]}
-              id={`radio-button-${0}-${option.id}`}
-            />
+                    <div className="u-paddingExtraSmall b-highlight"></div>
 
-            <Form.Check
-              value={1}
-              checked={votes[option.id] === 1}
-              onChange={() => {
-                console.log(option.id);
-                setVotes((prevOptions) => {
-                  return {
-                    ...prevOptions,
-                    [option.id]: 1,
-                  };
-                });
-              }}
-              type="radio"
-              label={VoteLabel[1]}
-              id={`radio-button-${1}-${option.id}`}
-            />
+                    <div className="u-paddingExtraSmall b-highlight">
+                      <Form.Check
+                        value={1}
+                        checked={votes[option.id] === 1}
+                        onChange={() => {
+                          console.log(option.id);
+                          setVotes((prevOptions) => {
+                            return {
+                              ...prevOptions,
+                              [option.id]: 1,
+                            };
+                          });
+                        }}
+                        type="radio"
+                        label={VoteLabel[1]}
+                        id={`radio-button-${1}-${option.id}`}
+                      />
+                    </div>
 
-            <Form.Check
-              value={2}
-              checked={votes[option.id] === 2}
-              onChange={() => {
-                console.log(option.id);
-                setVotes((prevOptions) => {
-                  return {
-                    ...prevOptions,
-                    [option.id]: 2,
-                  };
-                });
-              }}
-              type="radio"
-              label={VoteLabel[2]}
-              id={`radio-button-${2}-${option.id}`}
-            />
+                    <div className="u-paddingExtraSmall b-highlight"></div>
+
+                    <div className="u-paddingExtraSmall b-highlight">
+                      <Form.Check
+                        value={2}
+                        checked={votes[option.id] === 2}
+                        onChange={() => {
+                          console.log(option.id);
+                          setVotes((prevOptions) => {
+                            return {
+                              ...prevOptions,
+                              [option.id]: 2,
+                            };
+                          });
+                        }}
+                        type="radio"
+                        label={VoteLabel[2]}
+                        id={`radio-button-${2}-${option.id}`}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
-      <Button onClick={submit}>Submit vote</Button>
+          <Button onClick={submit} style={{ marginLeft: "10%" }}>
+            Submit vote
+          </Button>
+        </div>
+        <div className="u-sizeFull lg:u-size1of12"></div>
+      </div>
     </div>
   );
 }

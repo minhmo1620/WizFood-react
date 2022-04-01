@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { Form, Button } from "@ahaui/react";
+
+import MainHeader from "./Headers/MainHeader";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_HOST;
 
@@ -44,36 +46,35 @@ export default function CreateOption() {
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          history.push(`/boxes/${box_id}`);
-        }}
-      >
-        Back
-      </Button>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="option_name" className="Text-custom">
-          <Form.Label>Name</Form.Label>
-          <Form.Input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Option's name"
-          />
-        </Form.Group>
-        <Form.Group controlId="option_description" className="Text-custom">
-          <Form.Label>Description</Form.Label>
-          <Form.Input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Option's description"
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          <Button.Label>Create a new option</Button.Label>
-        </Button>
-      </Form>
+      <MainHeader />
+      <div>
+        <Form
+          onSubmit={handleSubmit}
+          style={{ marginLeft: "30%", marginTop: "2%" }}
+        >
+          <Form.Group controlId="option_name" className="Text-custom">
+            <Form.Label className="u-fontMedium">Name</Form.Label>
+            <Form.Input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Restaurant's name"
+            />
+          </Form.Group>
+          <Form.Group controlId="option_description" className="Text-custom">
+            <Form.Label className="u-fontMedium">Description</Form.Label>
+            <Form.Input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Description"
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit" style={{ marginLeft: "8%" }}>
+            <Button.Label>Add new recommendation</Button.Label>
+          </Button>
+        </Form>
+      </div>
     </div>
   );
 }

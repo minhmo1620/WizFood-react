@@ -58,21 +58,21 @@ export default function Home() {
             <div className="u-sizeFull lg:u-size4of12 u-paddingLeftNone">
               <div className="u-flex u-flexColumn b-highlight u-marginBottomSmall">
                 <div className="u-paddingExtraSmall b-highlight">
-                  <Button className="u-backgroundAccentLight">
+                  <Button className="u-backgroundAccentLight" onClick={() => history.push("/foods")}>
                     <Button.Label className="u-textCenter u-textBlack">
                       Add new food
                     </Button.Label>
                   </Button>
                 </div>
                 <div className="u-paddingExtraSmall b-highlight">
-                  <Button className="u-backgroundAccentLight">
+                  <Button className="u-backgroundAccentLight" onClick={() => history.push("/wizbox")}>
                     <Button.Label className="u-textCenter u-textBlack">
-                      Create a new WixBox
+                      Create a new WizBox
                     </Button.Label>
                   </Button>
                 </div>
                 <div className="u-paddingExtraSmall b-highlight">
-                  <Button className="u-backgroundAccentLight">
+                  <Button className="u-backgroundAccentLight" onClick={() => history.push("/wizaid")}>
                     <Button.Label className="u-textCenter u-textBlack">
                       What should I eat today?
                     </Button.Label>

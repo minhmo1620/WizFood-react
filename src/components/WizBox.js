@@ -64,39 +64,48 @@ export default function WizBox() {
   return (
     <div>
       <MainHeader />
-      <div>
-        <h4>Create new WizBox</h4>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="name" className="Text-custom">
-            <Form.Input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="WizBox's name"
-            />
-          </Form.Group>
-          <Form.Group controlId="description" className="Text-custom">
-            <Form.Input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="WizBox's description"
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            <Button.Label>Create</Button.Label>
-          </Button>
-        </Form>
-      </div>
-      <p></p>
-      <div>
-        <h4>Your WizBoxes</h4>
-        {boxes.map((box) => (
-          <div key={box.id}>
-            <Button onClick={() => goToBox(box.id)}>Box {box.id}</Button>
+      <div className="Grid u-marginBottomSmall">
+        <div className="u-sizeFull lg:u-size1of12"></div>
+        <div className="u-sizeFull lg:u-size10of12">
+          <h4 className="u-marginTopSmall">Create new WizBox</h4>
+          <div className="u-paddingExtraSmall">
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="name" className="Text-custom">
+                <Form.Input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="WizBox's name"
+                />
+              </Form.Group>
+              <Form.Group controlId="description" className="Text-custom">
+                <Form.Input
+                  type="text"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="WizBox's description"
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                <Button.Label>Create</Button.Label>
+              </Button>
+            </Form>
           </div>
-        ))}
+          <p></p>
+          <div>
+            <h4>Your WizBoxes</h4>
+            <div className="u-flex u-flexWrap b-highlight u-marginBottomSmall">
+              {boxes.map((box) => (
+                <div key={box.id} className="u-paddingExtraSmall b-highlight">
+                  <Button onClick={() => goToBox(box.id)}>Box {box.id}</Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="u-sizeFull lg:u-size1of12"></div>
       </div>
+      <div></div>
     </div>
   );
 }

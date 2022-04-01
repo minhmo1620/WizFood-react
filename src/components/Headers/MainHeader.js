@@ -40,7 +40,7 @@ export default function MainHeader() {
         <Header.Right>
           <TopMenu className="u-backgroundAccentLight" onSelect={goToPage}>
             <TopMenu.Item eventKey="/wizaid">WizAId</TopMenu.Item>
-            <TopMenu.Item eventKey="/wizbox">WizRes</TopMenu.Item>
+            <TopMenu.Item eventKey="/wizbox">WizBox</TopMenu.Item>
           </TopMenu>
           <SearchWizBox />
 

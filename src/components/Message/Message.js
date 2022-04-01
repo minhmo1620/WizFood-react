@@ -87,7 +87,7 @@ class Message extends React.Component {
   render() {
     return (
       <div>
-        <MainHeader/>
+        <MainHeader />
         <div
           id="chatt"
           style={{ overflow: "scroll", overflowX: "hidden", height: "85vh" }}
@@ -105,9 +105,7 @@ class Message extends React.Component {
                 >
                   <BubbleChat
                     text={msg.msag.message}
-                    avatar={() => (
-                      <Icon name="bot" size="medium" />
-                    )}
+                    avatar={() => <Icon name="bot" size="medium" />}
                     type="outbound"
                     currentOption={0}
                     onSelectOption={this.handleSend}

@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Button, BubbleChat, Avatar, Form } from "@ahaui/react";
+import { Button, BubbleChat, Avatar, Icon, Form } from "@ahaui/react";
 
 import "./Message.css";
 
@@ -111,11 +111,7 @@ class Message extends React.Component {
                   <BubbleChat
                     text={msg.msag.message}
                     avatar={() => (
-                      <Avatar
-                        size="small"
-                        className="u-backgroundPrimary u-textWhite u-text100"
-                        text="WA"
-                      />
+                      <Icon name="bot" size="medium" />
                     )}
                     type="outbound"
                     currentOption={0}

@@ -76,8 +76,8 @@ export default function Food() {
     <div>
       <MainHeader />
       <div>
-        <h4 style={{ marginLeft: "40%" }}>Add new food to your library</h4>
-        <Form style={{ marginLeft: "25%" }}>
+        <Form style={{ marginLeft: "30%" }}>
+          <h4 style={{ marginLeft: "8%" }}>Add new food to your library</h4>
           <Form.Group controlId="name" className="Text-custom" requiredControl>
             <Form.Label className="u-fontBold">Food name</Form.Label>
             <Form.Input
@@ -89,7 +89,11 @@ export default function Food() {
             />
           </Form.Group>
 
-          <Form.Group controlId="ingredients" className="Text-custom" requiredControl>
+          <Form.Group
+            controlId="ingredients"
+            className="Text-custom"
+            requiredControl
+          >
             <Form.Label className="u-fontBold">Ingredients</Form.Label>
             <Form.Label className="u-fontItalic">
               Please separate ingredients by comma
@@ -174,7 +178,12 @@ export default function Food() {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={handleSubmit}
+            style={{ marginLeft: "18%" }}
+          >
             <Button.Label>Create</Button.Label>
           </Button>
         </Form>

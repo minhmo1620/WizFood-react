@@ -1,13 +1,10 @@
 import React, { SafeAnchor } from "react";
 import { useHistory } from "react-router-dom";
-import { Header, Logo, TopMenu } from "@ahaui/react";
+import { Header, Logo } from "@ahaui/react";
 import logo from "../../logo.svg";
 
 export default function LoginHeader() {
   const history = useHistory();
-  const goToPage = (e) => {
-    history.push(e);
-  };
 
   return (
     <Header fullWidth className="u-backgroundAccentLight" style={{height:60}}>

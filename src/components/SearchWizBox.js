@@ -8,6 +8,7 @@ export default function SearchWizBox() {
   const [search, setSearch] = useState("");
   const goToBox = (box_id) => {
     history.push("/boxes/" + box_id);
+    setSearch("");
   };
 
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function SearchWizBox() {
         console.log("Enter key was pressed.");
         event.preventDefault();
         history.push("/boxes/" + search);
+        setSearch("");
       }
     };
     document.addEventListener("keydown", listener);

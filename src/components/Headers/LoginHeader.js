@@ -10,8 +10,8 @@ export default function LoginHeader() {
   };
 
   return (
-    <Header fullWidth className="u-backgroundAccentLight">
-      <Header.Brand>
+    <Header fullWidth className="u-backgroundAccentLight" style={{height:60}}>
+      <Header.Main className="u-positionAbsolute u-positionCenter u-paddingTopMedium">
         <Logo
           as={SafeAnchor}
           src={logo}
@@ -22,15 +22,6 @@ export default function LoginHeader() {
             history.push("/");
           }}
         />
-      </Header.Brand>
-      <Header.Main>
-
-        <Header.Left>
-        <TopMenu className="u-backgroundAccentLight" onSelect={goToPage}>
-            <TopMenu.Item eventKey="/wizaid">WizAId</TopMenu.Item>
-            <TopMenu.Item eventKey="/wizbox">WizRes</TopMenu.Item>
-          </TopMenu>
-        </Header.Left>
       </Header.Main>
     </Header>
   );

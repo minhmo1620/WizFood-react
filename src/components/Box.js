@@ -80,14 +80,12 @@ export default function Box(props) {
         <div className="u-sizeFull lg:u-size10of12">
           <div className="u-flex u-flexRow b-highlight u-marginBottomSmall">
             <div className="u-paddingExtraSmall b-highlight">
-              <div className="u-textLeft u-text800">Box ID: {data.id}</div>
-              <div className="u-textLeft u-text300">{data.name}</div>
-              <div className="u-textLeft u-text300">{data.description}</div>
+              <div className="u-text800">Box ID: {data.id}</div>
             </div>
             <div className="u-paddingExtraSmall b-highlight"></div>
             <div
               className="u-paddingExtraSmall b-highlight"
-              style={{ marginLeft: "30%" }}
+              style={{ marginLeft: "20%" }}
             >
               <Button
                 onClick={() => {
@@ -97,7 +95,7 @@ export default function Box(props) {
               >
                 <Icon name="plus" size="small" className="u-textPrimary" />
                 <Button.Label className="u-paddingExtraSmall u-textCenter u-textBlack">
-                  Add new option
+                  Add new restaurant
                 </Button.Label>
               </Button>
             </div>
@@ -118,23 +116,39 @@ export default function Box(props) {
               </Button>
             </div>
           </div>
-          <div className="u-text500">Available options</div>
+          <div className="u-textLeft u-text300">{data.name}</div>
+          <div className="u-textLeft u-text300">{data.description}</div>
+          <div className="u-text500 u-marginTopSmall">Available options</div>
           <div className="u-flex u-flexColumn b-highlight u-marginBottomSmall">
             {options.map((option) => (
               <div key={option.id} className="u-paddingExtraSmall b-highlight">
                 <div>Name: {option.name}</div>
                 <div>Description: {option.description}</div>
-                <div>
-                  {" "}
-                  {emoji.Happy} : {option.vote[0]}/{sum_votes[option.id]}
-                </div>
-                <div>
-                  {" "}
-                  {emoji.Neutral} : {option.vote[1]}/{sum_votes[option.id]}
-                </div>
-                <div>
-                  {" "}
-                  {emoji.Sad} : {option.vote[2]}/{sum_votes[option.id]}
+                <div className="u-flex u-flexRow b-highlight">
+                  <div
+                    key={option.id}
+                    className="u-paddingExtraSmall b-highlight"
+                  >
+                    {emoji.Happy} : {option.vote[0]}/{sum_votes[option.id]}
+                  </div>
+
+                  <div className="u-paddingExtraSmall b-highlight"></div>
+
+                  <div
+                    key={option.id}
+                    className="u-paddingExtraSmall b-highlight"
+                  >
+                    {emoji.Neutral} : {option.vote[1]}/{sum_votes[option.id]}
+                  </div>
+
+                  <div className="u-paddingExtraSmall b-highlight"></div>
+
+                  <div
+                    key={option.id}
+                    className="u-paddingExtraSmall b-highlight"
+                  >
+                    {emoji.Sad} : {option.vote[2]}/{sum_votes[option.id]}
+                  </div>
                 </div>
               </div>
             ))}

@@ -70,8 +70,8 @@ export default function CreateOption() {
               placeholder="Description"
             />
           </Form.Group>
-          <Button variant="primary" type="submit" style={{ marginLeft: "10%" }}>
-            <Button.Label>Create a new option</Button.Label>
+          <Button variant="primary" type="submit" style={{ marginLeft: "8%" }}>
+            <Button.Label>Add new recommendation</Button.Label>
           </Button>
         </Form>
       </div>

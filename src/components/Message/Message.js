@@ -32,18 +32,22 @@ class Message extends React.Component {
 
     const data = await res.json();
 
-    this.setState({
-      chat: [
-        ...this.state.chat,
-        {
-          from: "cb",
-          msag: {
-            message: data.message,
-            options: data.options,
+    if ("options" in data) {
+      this.setState({
+        chat: [
+          ...this.state.chat,
+          {
+            from: "cb",
+            msag: {
+              message: data.message,
+              options: data.options,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    } else {
+      window.location.reload();
+    }
   };
 
   handleChange = (e) => {
@@ -92,7 +96,6 @@ class Message extends React.Component {
           id="chatt"
           style={{ overflow: "scroll", overflowX: "hidden", height: "85vh" }}
         >
-          <div></div>
           {this.state.chat.map((msg) => {
             if (msg.from === "cb") {
               return (
